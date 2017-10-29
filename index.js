@@ -1,10 +1,10 @@
-const Express = require('express');
+var express = require('express');
+var app = express();
 
-const app = Express();
-const PORT = process.env.PORT || 3000;
+app.set('port', (process.env.PORT || 5000));
 
-app.use(Express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
-app.listen(PORT, function() {
-  console.log(`Sever listening on port ${PORT}...`);
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
 });
