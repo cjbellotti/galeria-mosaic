@@ -1,0 +1,79 @@
+body {
+  background : black;
+  font-family: "Arial";
+}
+
+.mosaic {
+  display : inline-block;
+  width : 200px;
+  height : 200px;
+}
+
+.mosaic > *{
+  position : absolute;
+  width : 200px;
+  height : 200px;
+  transition: 0.5s all;
+}
+
+.mosaic > div > img {
+  width :100%;
+  height : 100%;
+}
+
+.mosaic[toggle="1"] > div:nth-child(1) {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+
+.mosaic[toggle="1"] > div:nth-child(2) {
+  opacity: 0;
+  transform: scale(0, 0);
+}
+
+.mosaic[toggle="2"] > div:nth-child(1) {
+  opacity: 0;
+  transform: scale(0, 0);
+}
+
+.mosaic[toggle="2"] > div:nth-child(2) {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+
+.label {
+  opacity: 0;
+  color : white;
+  font-family: "Arial";
+  font-weight: bold;
+  position : absolute;
+  width : 200px;
+  height : 200px;
+  background-color: rgba(0,0,0,0.3);
+  text-align: center;
+  transition: 0.2s all;
+  transform : scale(0.5, 0.5);
+}
+
+.label span {
+  line-height: 200px;
+}
+
+.mosaic:hover .label {
+  opacity: 1;
+  transform : scale(1, 1);
+}
+
+.navbar {
+  list-style: none;
+}
+
+.navbar > li {
+  color : white;
+  display : inline-block;
+  margin-left: 10px;
+}
+
+.navbar > li[active=""] {
+  border-bottom: 1px solid rgb(30, 166, 133);
+}

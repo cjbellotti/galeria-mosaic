@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Fade Test</title>
+  <link rel="stylesheet" href="fade.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+  <button>Toggle</button>
+  <br>
+  <ul class="navbar">
+  </ul>
+  <script>
+
+    function toggle(e) {
+      console.log($(e.target).html());
+      var val = parseInt($('.mosaic').attr('toggle')); ;
+      val = val == 1 ? 2 : 1;
+      $('.mosaic').attr('toggle',val);
+    }
+
+    var datos = {
+      deportes : [
+        {
+          label : 'FUTBOL',
+          image : 'img/futbol.jpg'
+        },
+        {
+          label : 'GOLF',
+          image : 'img/golf.jpg'
+        },
+        {
+          label : 'RUGBY',
+          image : 'img/rugby.jpg'
+        },
+        {
+          label : 'TENNIS',
+          image : 'img/tennis.jpg'
+        },
+        {
+          label : 'VOLEY',
+          image : 'img/voley.jpg'
+        },
+        {
+          label : 'TAEKWON-DO',
+          image : 'img/taekwondo.jpg'
+        }
+      ],
+      ciencia : [
+        {
+          label : 'FISICA',
+          image : 'img/fisica.jpg'
+        },
+        {
+          label : 'ASTRONOMIA',
+          image : 'img/astronomia.jpg'
+        },
+        {
+          label : 'BIOLOGIA',
+          image : 'img/biologia.jpg'
+        },
+        {
+          label : 'INFORMATICA',
+          image : 'img/informatica.jpg'
+        },
+        {
+          label : 'MEDICINA',
+          image : 'img/medicina.jpg'
+        }
+      ],
+      entretenimiento : [
+        {
+          label : 'AIRE LIBRE',
+          image : 'img/aire-libre.jpeg'
+        },
+        {
+          label : 'COMICS',
+          image : 'img/comics.png'
+        },
+        {
+          label : 'JUEGOS DE MESA',
+          image : 'img/juegos-mesa.jpg'
+        },
+        {
+          label : 'VIDEOJUEGOS',
+          image : 'img/videojuegos.jpeg'
+        }
+      ]
+    }
+
+    function load(group) {
+      var els = new Array($('.mosaic'));
+      els.forEach(el => {
+        var toggle = parseInt(el.attr("toggle"));
+        el.find(`> div:nth-of-type(${toggle}) > img`).attr('src', '');
+        toggle = toggle == 1 ? 2 : 1;
+        el.attr('toggle', toggle.toString());
+      });
+    }
+
+    function clearAll() {
+      var els = new Array($('.mosaic'))[0];
+      els.forEach(el => {
+        el = $(el);
+        el.find(`> div:nth-of-type(1) > img`).attr('src', '');
+        el.find('> div:nth-of-type(1) > .label > span').html('')
+      });
+    }
+    
+    function loadAll() {
+      var els = new Array($('.mosaic'))[0];
+      var index = 0;
+      Object.keys(datos).forEach(group => {
+        datos[group].forEach(item => {
+          var el = $(els[index]);
+          el.find(`> div:nth-of-type(1) > img`).attr('src', item.image);
+          el.find('> div:nth-of-type(1) > .label > span').html(item.label)
+          el.attr('toggle', '1');
+          index++;
+        })
+      });
+    }
+
+    $(function() {
+      $('.navbar').append($(`
+          <li active>TODOS<li>
+        `));
+      Object.keys(datos).forEach(group => {
+        $('.navbar').append($(`
+            <li>${group.toUpperCase()}<li>
+          `));
+        datos[group].forEach(item => {
+          var el = $(`
+            <div class="mosaic" toggle="1">
+              <div>
+                <div class="label">
+                    <span>${item.label}</span>
+                </div>
+                <img src="${item.image}" alt="">
+              </div>
+              <div>
+                <div class="label">
+                    <span></span>
+                </div>
+                <img src="" alt="">
+              </div>
+            </div>
+            `);
+          $('body').append(el);
+        });
+      });
+
+      $('.navbar > li').click(toggle);
+    });
+  </script>
+</body>
+</html>
